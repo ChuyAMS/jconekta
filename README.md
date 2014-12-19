@@ -1,6 +1,6 @@
 # jconekta   0.0.1-SNAPSHOT
 ## Introduction
-A java library wrapper for https://www.conekta.io
+A java library wrapper for https://www.conekta.io. It uses Java Objects to build the request to the REST API.
 
 - *What problem does it try to fix?*
 - *What are the most important features?*
@@ -23,9 +23,6 @@ The likelihood of a pull request being used rises with the following properties:
 - You have used a feature branch.
 - You have included a test that demonstrates the functionality added or fixed.
 - You adhered to the [code conventions](http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html).
-
-## Sponsoring
-This project is sponsored and supported by [holisticon AG](http://holisticon.de/cms/About/Startseite)
 
 ## License
 This project is released under the revised Apache License.

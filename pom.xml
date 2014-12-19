@@ -8,7 +8,37 @@
 	<packaging>jar</packaging>
 
 	<name>jconekta</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/ChuyAMS/jconekta</url>
+
+	<organization>
+		<name>Jelly Wrap</name>
+		<url>http://jellywrap.com/</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Jesus Mata</name>
+			<email>chuy.ams@gmail.com</email>
+			<organization>Jelly Wrap</organization>
+			<organizationUrl>http://jellywrap.com/</organizationUrl>
+		</developer>
+	</developers>
+
+	<inceptionYear>2014</inceptionYear>
+
+	<prerequisites>
+		<maven>3.0.4</maven>
+	</prerequisites>
+
+	<issueManagement>
+		<url>https://github.com/ChuyAMS/jconekta/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:git@github.com:ChuyAMS/jconekta.git</connection>
+		<developerConnection>scm:git:git@github.com:ChuyAMS/jconekta.git</developerConnection>
+		<url>git@github.com:ChuyAMS/jconekta.git</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

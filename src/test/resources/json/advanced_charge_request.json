@@ -1,0 +1,47 @@
+{
+  "description":"Stogies",
+  "amount": 20000,
+  "currency":"MXN",
+  "reference_id":"9839-wolf_pack",
+  "card": "tok_test_visa_4242",
+  "details": {
+    "name":"Wolverine",
+    "email":"logan@x-men.org",
+    "phone":"403-342-0642",
+    "date_of_birth":"1980-09-24",
+    "billing_address": {
+      "tax_id":"xmn671212drx",
+      "company_name":"X-Men Inc.",
+      "street1":"77 Mystery Lane",
+      "street2":"Suite 124",
+      "city":"Darlington",
+      "state":"NJ",
+      "zip":"10192",
+      "phone":"77-777-7777",
+      "email":"purshasing@x-men.org"
+    },
+    "line_items": [
+      {
+        "name":"Box of Cohiba S1s",
+        "sku":"cohb_s1",
+        "unit_price": 20000,
+        "description":"Imported from Mex.",
+        "quantity": 1,
+        "type":"other_human_consumption"
+      }
+    ],
+    "shipment": {
+      "carrier":"estafeta",
+      "service":"international",
+      "tracking_id":"XXYYZZ-9990000",
+      "price": 20000,
+      "address": {
+        "street1":"250 Alexis St",
+        "city":"Red Deer",
+        "state":"Alberta",
+        "country":"Canada",
+        "zip":"T4N 0B8"
+      }
+    }
+  }
+}

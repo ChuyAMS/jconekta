@@ -16,8 +16,10 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jellywrap.conekta.domain.ChargeRequest;
+import com.jellywrap.conekta.domain.CardPayment;
+import com.jellywrap.conekta.domain.Charge;
 import com.jellywrap.conekta.domain.ChargeResponse;
+import com.jellywrap.conekta.domain.ChargeStatus;
 import com.jellywrap.conekta.rest.RestClient;
 
 /**
@@ -32,12 +34,14 @@ public class RestAPIAuthentcationTest {
 
     @BeforeClass
     public static void afterClass() {
+
 	restClient = new RestClient(new UsernamePasswordCredentials("key_xJH25p11gGkH6pME", ""));
 	restClient.setBaseUrl("https://api.conekta.io/");
     }
 
     @Test
-    public void testSimpleCharge() throws Exception {
+    public void testBasicCharge() throws Exception {
+
 	String payLoad = "{\"description\":\"Stogies\",  \"amount\": 20000,  \"currency\":\"MXN\",  \"reference_id\":\"9839-wolf_pack\",  \"card\": \"tok_test_visa_4242\"}";
 	String result = restClient.doPost("charges", payLoad);
 
@@ -47,8 +51,9 @@ public class RestAPIAuthentcationTest {
 
     @Test
     public void testAdvacedCharge() throws Exception {
+
 	String payLoad = inputStreamToString(this.getClass().getClassLoader()
-		.getResourceAsStream("json/advanced_charge_request.json"));
+	        .getResourceAsStream("json/advanced_charge_request.json"));
 	String result = restClient.doPost("charges", payLoad);
 
 	JsonNode jsonNode = mapper.readTree(result);
@@ -57,17 +62,22 @@ public class RestAPIAuthentcationTest {
 
     @Test
     public void testSimpleChargeWithObject() throws Exception {
-	ChargeRequest payLoad = new ChargeRequest();
-	payLoad.setAmount(30000);
+
+	Charge payLoad = new Charge();
+	payLoad.setAmount(12500);
 	payLoad.setCard("tok_test_visa_4242");
 	payLoad.setCurrency("MXN");
 	payLoad.setDescription("aasdasd");
 	payLoad.setReferenceID("test reference");
+	payLoad.setCapture(false);
 	ChargeResponse result = restClient.doPost("charges", payLoad, ChargeResponse.class);
+	assertTrue("Invalid Payment", result.getStatus() == ChargeStatus.PRE_AUTHORIZED);
+	assertTrue("OOpps", result.getPaymentMethod() instanceof CardPayment);
 	System.out.println(result);
     }
 
     private static String inputStreamToString(InputStream in) throws IOException {
+
 	StringBuilder sb = new StringBuilder();
 	BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
 	for (String line = r.readLine(); line != null; line = r.readLine()) {

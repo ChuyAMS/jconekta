@@ -74,6 +74,7 @@ public class RestClient {
      * @param usernamePasswordCredentials
      */
     public RestClient(UsernamePasswordCredentials usernamePasswordCredentials) {
+
 	PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
 	cm.setDefaultMaxPerRoute(2);
 	HttpClientBuilder builder = HttpClientBuilder.create();
@@ -114,6 +115,7 @@ public class RestClient {
      * @param baseUrl
      */
     public void setBaseUrl(String baseUrl) {
+
 	try {
 	    this.baseUrl = new URI(baseUrl);
 	} catch (URISyntaxException e) {
@@ -129,6 +131,7 @@ public class RestClient {
      * @return
      */
     public <E> E doGetForObject(String url, Map<String, Object> params, Class<E> excpected) {
+
 	try {
 	    String result = doGet(url, params);
 	    return mapper.readValue(result, excpected);
@@ -146,6 +149,7 @@ public class RestClient {
      * @return
      */
     public <E> E doGetForObject(String url, Class<E> excpected) {
+
 	return doGetForObject(url, null, excpected);
     }
 
@@ -157,6 +161,7 @@ public class RestClient {
      * @return
      */
     public <E> List<E> doGetForList(String url, Map<String, Object> params, Class<E> excpectedListType) {
+
 	try {
 	    String result = doGet(url, params);
 	    return mapper.readValue(result, mapper.getTypeFactory().constructCollectionType(List.class, excpectedListType));
@@ -174,6 +179,7 @@ public class RestClient {
      * @return
      */
     public <E> List<E> doGetForList(String url, Class<E> excpectedListType) {
+
 	return doGetForList(url, null, excpectedListType);
     }
 
@@ -183,6 +189,7 @@ public class RestClient {
      * @return
      */
     public String doGet(String url) {
+
 	return doGet(url, null);
     }
 
@@ -231,6 +238,7 @@ public class RestClient {
      * @return
      */
     public <E> E doPost(String url, Object payLoad, Class<E> excpected) {
+
 	try {
 	    String jsonPayLoad = mapper.writeValueAsString(payLoad);
 	    String result = doPost(url, jsonPayLoad);
@@ -254,6 +262,7 @@ public class RestClient {
      * @return
      */
     public String doPost(String url, String payLoad) {
+
 	if (!url.startsWith("/")) {
 	    url = "/" + url;
 	}
@@ -295,6 +304,7 @@ public class RestClient {
      * @param response
      */
     private void closeResponse(CloseableHttpResponse response) {
+
 	if (response == null) return;
 	try {
 	    response.close();
@@ -310,6 +320,7 @@ public class RestClient {
      * @throws IOException
      */
     private static String parseResponse(InputStream in) throws IOException {
+
 	StringBuilder sb = new StringBuilder();
 	BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
 	for (String line = r.readLine(); line != null; line = r.readLine()) {

@@ -2,8 +2,6 @@
 ## Introduction
 A java library wrapper for https://www.conekta.io. It uses Java Objects to build the request to the REST API.
 
-- *What problem does it try to fix?*
-- *What are the most important features?*
 
 This project is under development and shouldn't be used in production
 

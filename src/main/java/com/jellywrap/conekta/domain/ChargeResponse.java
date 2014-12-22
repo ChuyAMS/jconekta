@@ -3,9 +3,11 @@
  */
 package com.jellywrap.conekta.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.jellywrap.conekta.LocalDateTimeEpochJsonDeserializer;
 
 /**
  * Represents the response of a charge request. It includes some extra attributes that may not be used on a charge request
@@ -48,7 +50,8 @@ public class ChargeResponse extends Charge {
     private String customerID;
 
     @JsonProperty("paid_at")
-    private Date paidAt;
+    @JsonDeserialize(using = LocalDateTimeEpochJsonDeserializer.class)
+    private LocalDateTime paidAt;
 
     public String getId() {
 
@@ -140,12 +143,12 @@ public class ChargeResponse extends Charge {
 	this.customerID = customerID;
     }
 
-    public Date getPaidAt() {
+    public LocalDateTime getPaidAt() {
 
 	return paidAt;
     }
 
-    public void setPaidAt(Date paidAt) {
+    public void setPaidAt(LocalDateTime paidAt) {
 
 	this.paidAt = paidAt;
     }

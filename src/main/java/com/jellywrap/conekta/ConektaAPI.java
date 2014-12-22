@@ -25,8 +25,6 @@ public interface ConektaAPI {
 
     public ChargeResponse capture(String chargeID);
 
-    public ChargeResponse findChargeByID(String chargeID);
-
     public ChargeResponse query(String queryString);
 
     public ChargeResponse query(Query query);

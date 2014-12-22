@@ -3,6 +3,7 @@
  */
 package com.jellywrap.conekta.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,9 +21,13 @@ public class ChargeDetails {
 
     private String email;
 
+    @JsonProperty("date_of_birth")
+    private String dateOfBirth;
+
     @JsonProperty("billing_address")
     private BillingAddress billingAddress;
 
+    @JsonProperty("line_items")
     private List<LineItem> lineItems;
 
     private Shipment shipment;
@@ -57,6 +62,16 @@ public class ChargeDetails {
 	this.email = email;
     }
 
+    public String getDateOfBirth() {
+
+	return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+
+	this.dateOfBirth = dateOfBirth;
+    }
+
     public BillingAddress getBillingAddress() {
 
 	return billingAddress;
@@ -77,6 +92,11 @@ public class ChargeDetails {
 	this.lineItems = lineItems;
     }
 
+    public void addLineItem(LineItem lineItem) {
+
+	this.lineItems.add(lineItem);
+    }
+
     public Shipment getShipment() {
 
 	return shipment;
@@ -90,8 +110,9 @@ public class ChargeDetails {
     @Override
     public String toString() {
 
-	return "ChargeDetails [customerName=" + customerName + ", phone=" + phone + ", email=" + email + ", billingAddress="
-	        + billingAddress + ", lineItems=" + lineItems + ", shipment=" + shipment + "]";
+	return "ChargeDetails [customerName=" + customerName + ", phone=" + phone + ", email=" + email + ", dateOfBirth="
+	        + dateOfBirth + ", billingAddress=" + billingAddress + ", lineItems=" + lineItems + ", shipment=" + shipment
+	        + "]";
     }
 
 }

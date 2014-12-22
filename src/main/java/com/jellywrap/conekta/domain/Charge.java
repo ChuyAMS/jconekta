@@ -33,6 +33,8 @@ public class Charge {
      **/
     private String card;
 
+    private Bank bank;
+
     /** Object with all the information to make cash payment (required only for cash payment, eg OXXO). **/
     private Cash cash;
 
@@ -47,6 +49,15 @@ public class Charge {
      * but can also be used to store purchase information for your own use.
      */
     private ChargeDetails details;
+    
+    
+    /**
+     * 
+     */
+    public Charge() {
+	//By default capture is true
+	this.capture = true;
+    }
 
     /**
      * 
@@ -187,6 +198,16 @@ public class Charge {
 	this.cash = cash;
     }
 
+    public Bank getBank() {
+
+	return bank;
+    }
+
+    public void setBank(Bank bank) {
+
+	this.bank = bank;
+    }
+
     @Override
     public String toString() {
 
@@ -217,6 +238,53 @@ public class Charge {
 	}
 
 	public void setExpiresAt(String expiresAt) {
+
+	    this.expiresAt = expiresAt;
+	}
+
+    }
+
+    public class Bank {
+
+	@JsonProperty(value = "type")
+	private String bank;
+
+	@JsonProperty(value = "expires_at")
+	private Integer expiresAt;
+
+	public Bank() {
+
+	    this("banorte", null);
+	}
+
+	public Bank(String bank) {
+
+	    this(bank, null);
+	}
+
+	public Bank(String bank, Integer expiresAt) {
+
+	    super();
+	    this.bank = bank;
+	    this.expiresAt = expiresAt;
+	}
+
+	public String getBank() {
+
+	    return bank;
+	}
+
+	public void setBank(String bank) {
+
+	    this.bank = bank;
+	}
+
+	public Integer getExpiresAt() {
+
+	    return expiresAt;
+	}
+
+	public void setExpiresAt(Integer expiresAt) {
 
 	    this.expiresAt = expiresAt;
 	}

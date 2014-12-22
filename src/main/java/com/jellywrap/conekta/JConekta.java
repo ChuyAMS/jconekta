@@ -15,14 +15,13 @@ public class JConekta {
 
     private static JConekta instance;
 
-    private static String apiKey;
-
     private RestClient restClient;
 
     /**
      * 
      */
     private JConekta() {
+
     }
 
     /**
@@ -30,6 +29,7 @@ public class JConekta {
      * @return
      */
     public static JConekta getInstance() {
+
 	if (instance == null) {
 	    synchronized (JConekta.class) {
 		if (instance == null) {
@@ -41,8 +41,9 @@ public class JConekta {
     }
 
     public void setAPIKey(String apiKey) {
-	JConekta.apiKey = apiKey;
+
 	restClient = new RestClient(new UsernamePasswordCredentials(apiKey));
+	restClient.setBaseUrl("https://api.conekta.io/");
     }
 
 }

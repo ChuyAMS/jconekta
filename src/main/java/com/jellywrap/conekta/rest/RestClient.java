@@ -17,12 +17,12 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.List;
-import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.http.HttpHeaders;
+import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
@@ -130,7 +130,7 @@ public class RestClient {
      * @param excpected
      * @return
      */
-    public <E> E doGetForObject(String url, Map<String, Object> params, Class<E> excpected) {
+    public <E> E doGetForObject(String url, List<RequestParam> params, Class<E> excpected) {
 
 	try {
 	    String result = doGet(url, params);
@@ -160,7 +160,7 @@ public class RestClient {
      * @param excpectedListType
      * @return
      */
-    public <E> List<E> doGetForList(String url, Map<String, Object> params, Class<E> excpectedListType) {
+    public <E> List<E> doGetForList(String url, List<RequestParam> params, Class<E> excpectedListType) {
 
 	try {
 	    String result = doGet(url, params);
@@ -199,14 +199,14 @@ public class RestClient {
      * @param params
      * @return
      */
-    public String doGet(String url, Map<String, Object> params) {
+    public String doGet(String url, List<RequestParam> params) {
 
 	CloseableHttpResponse response = null;
 	try {
 	    URIBuilder uriBuilder = new URIBuilder(baseUrl).setPath((url.startsWith("/") ? url : "/" + url));
 	    if (params != null) {
-		for (Map.Entry<String, Object> p : params.entrySet()) {
-		    uriBuilder = uriBuilder.addParameter(p.getKey(), p.getValue().toString());
+		for (RequestParam param : params) {
+		    uriBuilder = uriBuilder.addParameter(param.getName(), param.getValue());
 		}
 	    }
 	    URI uri = uriBuilder.build();
@@ -311,23 +311,6 @@ public class RestClient {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-    }
-
-    /**
-     * 
-     * @param in
-     * @return
-     * @throws IOException
-     */
-    private static String parseResponse(InputStream in) throws IOException {
-
-	StringBuilder sb = new StringBuilder();
-	BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
-	for (String line = r.readLine(); line != null; line = r.readLine()) {
-	    sb.append(line);
-	}
-	in.close();
-	return sb.toString();
     }
 
 }

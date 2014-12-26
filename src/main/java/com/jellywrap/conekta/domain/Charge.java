@@ -49,13 +49,13 @@ public class Charge {
      * but can also be used to store purchase information for your own use.
      */
     private ChargeDetails details;
-    
-    
+
     /**
      * 
      */
     public Charge() {
-	//By default capture is true
+
+	// By default capture is true
 	this.capture = true;
     }
 
@@ -215,12 +215,33 @@ public class Charge {
 	        + referenceID + ", card=" + card + ", capture=" + capture + ", details=" + details + "]";
     }
 
-    public class Cash {
+    public static class Cash {
 
 	private String type;
 
 	@JsonProperty("expires_at")
 	private String expiresAt;
+
+	/**
+         * 
+         */
+	public Cash() {
+
+	    this("oxxo");
+	}
+
+	public Cash(String type) {
+
+	    super();
+	    this.type = type;
+	}
+
+	public Cash(String type, String expiresAt) {
+
+	    super();
+	    this.type = type;
+	    this.expiresAt = expiresAt;
+	}
 
 	public String getType() {
 
@@ -244,7 +265,7 @@ public class Charge {
 
     }
 
-    public class Bank {
+    public static class Bank {
 
 	@JsonProperty(value = "type")
 	private String bank;

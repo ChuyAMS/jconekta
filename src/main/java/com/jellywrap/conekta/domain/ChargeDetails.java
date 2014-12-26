@@ -3,7 +3,6 @@
  */
 package com.jellywrap.conekta.domain;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -3,7 +3,7 @@
  */
 package com.jellywrap.conekta.query;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.jellywrap.conekta.rest.RequestParam;
 
@@ -14,7 +14,7 @@ import com.jellywrap.conekta.rest.RequestParam;
 public interface Query {
 
     public String getQueryString();
-
-    public List<RequestParam> getParams();
+    
+    public Collection<RequestParam> getParams();
 
 }

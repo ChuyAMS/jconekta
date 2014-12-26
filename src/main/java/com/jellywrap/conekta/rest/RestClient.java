@@ -3,10 +3,8 @@
  */
 package com.jellywrap.conekta.rest;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
@@ -16,13 +14,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.http.HttpHeaders;
-import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
@@ -49,6 +48,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jellywrap.conekta.exception.ConektaApiException;
+import com.jellywrap.conekta.exception.ErrorMessage;
 
 /**
  * A basic RESTFul client used to perform operations against <a href="https://www.conekta.io/es/docs/api/">Conekta<a/>
@@ -130,7 +130,7 @@ public class RestClient {
      * @param excpected
      * @return
      */
-    public <E> E doGetForObject(String url, List<RequestParam> params, Class<E> excpected) {
+    public <E> E doGetForObject(String url, Collection<RequestParam> params, Class<E> excpected) {
 
 	try {
 	    String result = doGet(url, params);
@@ -160,7 +160,7 @@ public class RestClient {
      * @param excpectedListType
      * @return
      */
-    public <E> List<E> doGetForList(String url, List<RequestParam> params, Class<E> excpectedListType) {
+    public <E> List<E> doGetForList(String url, Collection<RequestParam> params, Class<E> excpectedListType) {
 
 	try {
 	    String result = doGet(url, params);
@@ -199,7 +199,7 @@ public class RestClient {
      * @param params
      * @return
      */
-    public String doGet(String url, List<RequestParam> params) {
+    public String doGet(String url, Collection<RequestParam> params) {
 
 	CloseableHttpResponse response = null;
 	try {
@@ -282,7 +282,7 @@ public class RestClient {
 	    response = httpClient.execute(httpPost);
 	    String result = EntityUtils.toString(response.getEntity());
 	    if (result.contains("{\"object\":\"error\"")) {
-		throw new ConektaApiException(result);
+		throw new ConektaApiException(mapper.readValue(result, ErrorMessage.class));
 	    }
 	    return result;
 	} catch (IOException e) {
